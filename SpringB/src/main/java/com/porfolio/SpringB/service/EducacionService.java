@@ -33,4 +33,8 @@ public EducacionRepository eduRepo;
         return eduRepo.findById(id).orElse(null);
     }
     
+        @Override
+    public void editarEducacion(Educacion exp) {
+        eduRepo.save(exp);
+    }
 }

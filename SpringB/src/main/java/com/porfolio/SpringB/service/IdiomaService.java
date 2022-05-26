@@ -31,5 +31,10 @@ public IdiomaRepository idiRepo;
     @Override
     public Idioma buscarIdioma(Long id) {
         return idiRepo.findById(id).orElse(null);
-    }    
+    }
+
+    @Override
+    public void editarIdioma(Idioma exp) {
+        idiRepo.save(exp);
+    }
 }

@@ -31,5 +31,9 @@ public SkillRepository skiRepo;
     @Override
     public Skill buscarSkill(Long id) {
         return skiRepo.findById(id).orElse(null);
+    }
+    @Override
+    public void editarSkill(Skill exp) {
+        skiRepo.save(exp);
     }    
 }

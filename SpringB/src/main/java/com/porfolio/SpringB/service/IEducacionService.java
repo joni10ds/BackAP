@@ -16,4 +16,5 @@ public interface IEducacionService {
     
     public Educacion buscarEducacion (Long id);
     
+    public void editarEducacion (Educacion exp);
 }

@@ -3,11 +3,13 @@ import com.porfolio.SpringB.model.Educacion;
 import com.porfolio.SpringB.model.Experiencia;
 import com.porfolio.SpringB.model.Idioma;
 import com.porfolio.SpringB.model.Persona;
+import com.porfolio.SpringB.model.Proyecto;
 import com.porfolio.SpringB.model.Skill;
 import com.porfolio.SpringB.service.IEducacionService;
 import com.porfolio.SpringB.service.IExperienciaService;
 import com.porfolio.SpringB.service.IIdiomaService;
 import com.porfolio.SpringB.service.IPersonaService;
+import com.porfolio.SpringB.service.IProyectoService;
 import com.porfolio.SpringB.service.ISkillService;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +48,18 @@ public class Controller {
         persoServ.borrarPersona(id);
     }
     
+    @PutMapping ("/editar/persona/{id}")
+    public void editarPersona (@PathVariable Long id, @RequestBody Persona pers){
+        var expToModify= persoServ.buscarPersona(id);
+        expToModify.setNombre(pers.getNombre());
+        expToModify.setApellido(pers.getApellido());
+        expToModify.setTitulo1(pers.getTitulo1());
+        expToModify.setTitulo2(pers.getTitulo2());
+        expToModify.setEmail (pers.getEmail());
+        expToModify.setAcercade (pers.getAcercade());
+        persoServ.editarPersona(expToModify);
+    }
+    
   //Experiencias 
     @Autowired
     private IExperienciaService expServ;
@@ -63,6 +78,17 @@ public class Controller {
     @DeleteMapping ("/delete/experiencia/{id}")
     public void borrarExperiencia (@PathVariable Long id){
         expServ.borrarExperiencia(id);
+    }
+    
+    @PutMapping ("/editar/experiencia/{id}")
+    public void editarExperiencia (@PathVariable Long id, @RequestBody Experiencia exp){
+        var expToModify= expServ.buscarExperiencia(id);
+        expToModify.setEmpresa(exp.getEmpresa());
+        expToModify.setPuesto(exp.getPuesto());
+        expToModify.setFechaingreso(exp.getFechaingreso());
+        expToModify.setFechasalida(exp.getFechasalida());
+        expToModify.setDetalle (exp.getDetalle());
+        expServ.editarExperiencia(expToModify);
     }
 
   //Educaciones 
@@ -85,6 +111,17 @@ public class Controller {
         eduServ.borrarEducacion(id);
     }
     
+    @PutMapping ("/editar/educacion/{id}")
+    public void editarEducacion (@PathVariable Long id, @RequestBody Educacion exp){
+        var expToModify= eduServ.buscarEducacion(id);
+        expToModify.setTipo(exp.getTipo());
+        expToModify.setCarrera(exp.getCarrera());
+        expToModify.setEstablecimiento(exp.getEstablecimiento());
+        expToModify.setFechainicio(exp.getFechainicio());
+        expToModify.setFechafin (exp.getFechafin());
+        eduServ.editarEducacion(expToModify);
+    }
+    
     //Idiomas
     @Autowired
     private IIdiomaService idiServ;
@@ -105,6 +142,15 @@ public class Controller {
         idiServ.borrarIdioma(id);
     }
     
+    @PutMapping ("/editar/idioma/{id}")
+    public void editarIdioma (@PathVariable Long id, @RequestBody Idioma exp){
+        var expToModify= idiServ.buscarIdioma(id);
+        expToModify.setIdioma(exp.getIdioma());
+        expToModify.setEscrito(exp.getEscrito());
+        expToModify.setOral(exp.getOral()); 
+        idiServ.editarIdioma(expToModify);
+    }
+    
     //Skills
     @Autowired
     private ISkillService skiServ;
@@ -123,6 +169,43 @@ public class Controller {
     @DeleteMapping ("/delete/skill/{id}")
     public void borrarSkill (@PathVariable Long id){
         skiServ.borrarSkill(id);
+    }
+    
+    @PutMapping ("/editar/skill/{id}")
+    public void editarSkill (@PathVariable Long id, @RequestBody Skill exp){
+        var expToModify= skiServ.buscarSkill(id);
+        expToModify.setCapacidad(exp.getCapacidad());
+        expToModify.setNivel(exp.getNivel());
+        skiServ.editarSkill(expToModify);
+    }
+    
+    //Proyectos
+    @Autowired
+    private IProyectoService proServ;
+    
+    @PostMapping ("/new/proyecto")
+    public void agregarProyecto (@RequestBody Proyecto exp){
+        proServ.crearProyecto(exp);
+    }
+    
+    @GetMapping ("/ver/proyectos")
+    @ResponseBody
+    public List<Proyecto> verProyectos() {
+        return proServ.verProyecto();
+    }
+ 
+    @DeleteMapping ("/delete/proyecto/{id}")
+    public void borrarProyecto (@PathVariable Long id){
+        proServ.borrarProyecto(id);
+    }
+    
+    @PutMapping ("/editar/proyecto/{id}")
+    public void editarProyecto (@PathVariable Long id, @RequestBody Proyecto exp){
+        var expToModify= proServ.buscarProyecto(id);
+        expToModify.setNombre(exp.getNombre());
+        expToModify.setFecharealizacion(exp.getFecharealizacion());
+        expToModify.setDescripcion(exp.getDescripcion()); 
+        proServ.editarProyecto(expToModify);
     }
 
     }

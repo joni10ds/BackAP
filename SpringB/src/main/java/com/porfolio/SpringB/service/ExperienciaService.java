@@ -33,4 +33,9 @@ public ExperienciaRepository expRepo;
         return expRepo.findById(id).orElse(null);
     }
     
+    @Override
+    public void editarExperiencia(Experiencia exp) {
+        expRepo.save(exp);
+    }
+    
 }

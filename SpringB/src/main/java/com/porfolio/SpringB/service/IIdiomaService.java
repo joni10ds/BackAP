@@ -16,4 +16,5 @@ public interface IIdiomaService {
     
     public Idioma buscarIdioma (Long id);
     
+    public void editarIdioma (Idioma exp);
 }

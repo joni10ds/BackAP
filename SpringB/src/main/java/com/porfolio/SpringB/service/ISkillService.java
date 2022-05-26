@@ -15,5 +15,5 @@ public interface ISkillService {
     
     public Skill buscarSkill (Long id);
     
-    
+    public void editarSkill (Skill exp);
 }
